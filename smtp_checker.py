@@ -22,10 +22,16 @@ def check_smtp():
     msg['To'] = to_email
 
     try:
-        with smtplib.SMTP(smtp_server, smtp_port, timeout=10) as server:
-            server.starttls()
-            server.login(username, password)
-            server.send_message(msg)
+        if smtp_port == 465:
+            with smtplib.SMTP_SSL(smtp_server, smtp_port, timeout=10) as server:
+                server.login(username, password)
+                server.send_message(msg)
+        else:
+            with smtplib.SMTP(smtp_server, smtp_port, timeout=10) as server:
+                server.starttls()
+                server.login(username, password)
+                server.send_message(msg)
+
         return jsonify({"status": "pass", "message": "Email sent successfully"})
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)})
