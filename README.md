@@ -157,5 +157,5 @@ Format/lint: this project intentionally has minimal dependencies. Keep changes s
 
 ## License
 
-MIT or as per your organization’s policy.
+MIT 
 
